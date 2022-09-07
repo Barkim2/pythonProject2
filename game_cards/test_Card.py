@@ -1,6 +1,7 @@
 from unittest import TestCase
 from Card import Card
 
+
 class TestCard(TestCase):
     def setUp(self):
         self.c1 = Card(10, "Heart")
@@ -14,12 +15,13 @@ class TestCard(TestCase):
             c1 = Card("10", "Heart")
 
     def test_invalid__init__range_value(self):
+        # edge cases
         with self.assertRaises(ValueError):
             c1 = Card(14, "Heart")
         with self.assertRaises(ValueError):
             c1 = Card(0, "Heart")
 
-    def test_invalid__init__type_suit(self):
+    def test_invalid__init__suit_type(self):
         with self.assertRaises(TypeError):
             c1 = Card(10, [1, 2, 3])
 
@@ -41,16 +43,16 @@ class TestCard(TestCase):
     def test_valid__gt__(self):
         self.c2 = Card(1, "Club")
         self.c3 = Card(5, "Diamond")
-        self.assertEqual(type(self.c2),Card)
-        # 1 checks:
-        self.c2 = Card(1, "Club")       # suit = 4
+        self.assertEqual(type(self.c2), Card)
+        # checks that 1 is equal more than 13 (the biggest card)
+        self.c2 = Card(1, "Diamond")       # suit = 4
         self.c3 = Card(5, "Diamond")    # suit = 1
         self.assertTrue(self.c2.__gt__(self.c3))
-        #
+        # checks
         self.c2 = Card(5, "Club")  # suit = 4
         self.c3 = Card(1, "Diamond")  # suit = 1
         self.assertFalse(self.c2.__gt__(self.c3))
-        #
+        # checks when the value is equal, the biggest suit determine the biggest card
         self.c2 = Card(5, "Club")  # suit = 4
         self.c3 = Card(5, "Diamond")  # suit = 1
         self.assertTrue(self.c2.__gt__(self.c3))
@@ -58,7 +60,7 @@ class TestCard(TestCase):
         self.c2 = Card(5, "Diamond")  # suit = 4
         self.c3 = Card(5, "Club")  # suit = 1
         self.assertFalse(self.c2.__gt__(self.c3))
-        #
+        # checks totally different cards
         self.c2 = Card(5, "Club")  # suit = 4
         self.c3 = Card(6, "Diamond")  # suit = 1
         self.assertFalse(self.c2.__gt__(self.c3))
@@ -67,5 +69,12 @@ class TestCard(TestCase):
         with self.assertRaises(TypeError):
             self.c1.__gt__(120)
 
-    def test_suit_to_number(self):
-        self.fail()
+    def test_valid__eq__(self):
+        self.c2 = Card(10, "Heart")
+        self.assertTrue(self.c1.__eq__(self.c2))
+        self.c2 = Card(11, "Heart")
+        self.assertFalse(self.c1.__eq__(self.c2))
+
+    def test_invalid__eq__type(self):
+        with self.assertRaises(TypeError):
+            self.c1.__eq__(120)

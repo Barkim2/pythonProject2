@@ -4,7 +4,7 @@ import random
 
 class DeckOfCards:
     def __init__(self):
-        # creates a list of cards
+        # creates a list of cards, 13 cards (1-13) of each suit
         self.cards = []
         suit_list = ["Diamond", "Spade", "Heart", "Club"]      # list of suits
         suit_counter = 0
@@ -38,6 +38,6 @@ class DeckOfCards:
         # list's par (raffle index and not a value)
         len_of_list = len(self.cards)
         index = random.randint(0, len_of_list-1)
-        # remove a card from the list by his index
-        c = self.cards.pop(index)
+        # the range is from the first element [0] until the last one including
+        c = self.cards.pop(index)   # remove a card from the list by his index
         return c

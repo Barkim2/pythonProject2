@@ -1,30 +1,28 @@
 class Card:     # ex.1
 
-     # function check out str valid/invalid
-
     def __init__(self, value: int, suit: str):
-        # Initialize values in the object card
-        # card value is between 1-13
-        # float
-        if type(value) != int:
-            raise TypeError("value of card must be int!")
-        if value < 1 or value > 13:
-            raise ValueError("card value is between 1-13!")
-        if type(suit) != str:
+        # Initialize values in the object of 'Card'
+        if type(value) != int:       # checks if the value is not a number
+            raise TypeError("Value of Card must be of type int!")
+        if value < 1 or value > 13:  # checks if the value is valid (1-13)
+            raise ValueError("Value of Card is only between 1-13!")
+        if type(suit) != str:        # checks if the suit is a string
             raise TypeError("suit of card must be str!")
         if suit != "Diamond" and suit != "Spade" and suit != "Heart" and suit != "Club":
+            # checks if suit of card is valid(one of the forth above)
             raise ValueError("suit of card must be one of these: 'Diamond', 'Spade', 'Heart', 'Club'")
         self.value = value
         self.suit = suit
 
     def suit_to_number(self, suit: str):
-        # this function receive a suit as a string, and convert it to int
-        # check if the suit is valid
-        if type(suit) != str:
+        # this function receive a suit as a string checks if it is valid, convert it to int
+        # by the correct order and return it
+        if type(suit) != str:       # check if the suit is valid
             raise TypeError("suit of card must be str!")
         if suit != "Diamond" and suit != "Spade" and suit != "Heart" and suit != "Club":
             raise ValueError("suit of card must be one of these: 'Diamond', 'Spade', 'Heart', 'Club'")
         suit_list = ["Diamond", "Spade", "Heart", "Club"]
+        # suit values: Diamond=1 Spade=2 Heart=3 Club=4
         suit_number = 0
         for i in range(len(suit_list)):
             if suit == suit_list[i]:    # suit value is value of list[i]
@@ -32,14 +30,15 @@ class Card:     # ex.1
         return suit_number
 
     def __gt__(self, other):
-        # check which card has a bigger total value (value/suit)
-        if type(other) != Card:
+        # check which card has a bigger total value (value+suit)
+        if type(other) != Card:     # check if received value is not Card
             raise TypeError("received value must be of type Card ")
+        # converting str suit to a number (1-4)
         num_suit_other = self.suit_to_number(other.suit)
         num_suit_self = self.suit_to_number(self.suit)
-        if self.value == 1 and other.value > 1:     # self_v: 1  other_v: 2-13 -> self
+        if self.value == 1 and other.value > 1:     # self_v: 1 (Ace)  other_v: 2-13 -> self
             return True
-        if other.value == 1 and self.value > 1:
+        if other.value == 1 and self.value > 1:     # self_v: 2-13  other_v: 1 (Ace) -> other
             return False
         # both numbers different from 1
         if self.value > other.value:
@@ -49,12 +48,15 @@ class Card:     # ex.1
                 return True
             return False                            # self_s < other_s -> other
         if self.value < other.value:
-            return False                                # self_v < other_v -> other
-
+            return False                            # self_v < other_v -> other
 
     def __eq__(self, other):
+        # same pack or not ? ************************************************
         # check if value of cards is the same
+        if type(other) != Card:     # check if received value is not Card
+            raise TypeError("received value must be of type Card ")
         if self.value == other.value:
+            # no valid case of two card with same suit (in one pack), therefore only value has been checked
             return True
         return False
 
