@@ -16,9 +16,11 @@ from CardGame import CardGame
 # # print("======================")
 # # print(d1)
 #
-# player1 = Player("q", 26)
+player1 = Player("q", 1)
 # player1.set_hand(d1)
-# print(player1)
+print(player1)
+
+
 
 # main:
 name_1 = input("enter player_1 name: ")
