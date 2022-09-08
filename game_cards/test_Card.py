@@ -9,6 +9,12 @@ class TestCard(TestCase):
     def test_valid__init__(self):
         self.assertEqual(self.c1.value, 10)
         self.assertEqual(self.c1.suit, "Heart")
+        self.c1 = Card(10, "Diamond")
+        self.assertEqual(self.c1.suit, "Diamond")
+        self.c1 = Card(10, "Spade")
+        self.assertEqual(self.c1.suit, "Spade")
+        self.c1 = Card(10, "Club")
+        self.assertEqual(self.c1.suit, "Club")
 
     def test_invalid__init__type_value(self):
         with self.assertRaises(TypeError):
@@ -40,13 +46,13 @@ class TestCard(TestCase):
         with self.assertRaises(ValueError):
             c1 = Card(10, "Clube")
 
+    def test_valid__gt__type_card(self):
+        self.assertEqual(type(self.c1), Card)
+
     def test_valid__gt__(self):
-        self.c2 = Card(1, "Club")
-        self.c3 = Card(5, "Diamond")
-        self.assertEqual(type(self.c2), Card)
         # checks that 1 is equal more than 13 (the biggest card)
         self.c2 = Card(1, "Diamond")       # suit = 4
-        self.c3 = Card(5, "Diamond")    # suit = 1
+        self.c3 = Card(5, "Club")    # suit = 1
         self.assertTrue(self.c2.__gt__(self.c3))
         # checks
         self.c2 = Card(5, "Club")  # suit = 4
@@ -64,6 +70,10 @@ class TestCard(TestCase):
         self.c2 = Card(5, "Club")  # suit = 4
         self.c3 = Card(6, "Diamond")  # suit = 1
         self.assertFalse(self.c2.__gt__(self.c3))
+        # checks totally different cards
+        self.c2 = Card(6, "Club")  # suit = 4
+        self.c3 = Card(5, "Diamond")  # suit = 1
+        self.assertTrue(self.c2.__gt__(self.c3))
 
     def test_invalid__gt__type(self):
         with self.assertRaises(TypeError):
@@ -74,6 +84,8 @@ class TestCard(TestCase):
         self.assertTrue(self.c1.__eq__(self.c2))
         self.c2 = Card(11, "Heart")
         self.assertFalse(self.c1.__eq__(self.c2))
+        self.c2 = Card(10, "Club")
+        self.assertTrue(self.c1.__eq__(self.c2))
 
     def test_invalid__eq__type(self):
         with self.assertRaises(TypeError):

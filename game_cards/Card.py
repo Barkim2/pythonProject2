@@ -51,10 +51,14 @@ class Card:     # ex.1
             return False                            # self_v < other_v -> other
 
     def __eq__(self, other):
-        # same pack or not ? ************************************************
+        # check the suit too
         # check if value of cards is the same
         if type(other) != Card:     # check if received value is not Card
             raise TypeError("received value must be of type Card ")
+        if self.suit == other.suit:
+            if self.value == other.value:
+                return True
+            return False
         if self.value == other.value:
             # no valid case of two card with same suit (in one pack), therefore only value has been checked
             return True

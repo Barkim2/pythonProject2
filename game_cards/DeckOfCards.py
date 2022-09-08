@@ -26,9 +26,6 @@ class DeckOfCards:
     def __str__(self):
         return f"list of cards: {self.cards}"
 
-    # def __repr__(self):
-    #     return f"list of cards: {self.cards}"
-
     def cards_shuffle(self):
         # shuffle the cards in the list using python function (shuffle from random)
         random.shuffle(self.cards)
@@ -37,6 +34,8 @@ class DeckOfCards:
         # raffle an index in the range all the
         # list's par (raffle index and not a value)
         len_of_list = len(self.cards)
+        if len_of_list == 0:
+            raise ValueError("pack of cards is empty")
         index = random.randint(0, len_of_list-1)
         # the range is from the first element [0] until the last one including
         c = self.cards.pop(index)   # remove a card from the list by his index

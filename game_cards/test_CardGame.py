@@ -1,36 +1,21 @@
-from unittest import TestCase
 from CardGame import CardGame
-from DeckOfCards import DeckOfCards
+from unittest import TestCase
 
 
 class TestCardGame(TestCase):
     def setUp(self):
-        self.card_play_1 = CardGame("a", "b", 3, 3)  # check!!
-        self.deck = DeckOfCards()
+        self.card_play_1 = CardGame("a", "b", 26, 26)  # * 3
 
     def test_valid__init__(self):
+        # check if card_game object has built right
         self.assertEqual(self.card_play_1.player1.name, "a")
         self.assertEqual(self.card_play_1.player2.name, "b")
         self.assertEqual(self.card_play_1.player1.num_of_cards, 26)
         self.assertEqual(self.card_play_1.player2.num_of_cards, 26)
-        # print(self.deck.cards)
-        # self.assertEqual(self.card_play_1.deck.cards, self.deck.cards)
-
-    def test_invalid__init__type_name_1(self):
-        with self.assertRaises(TypeError):
-            card_game = CardGame([1, 2, 3], "b", 26, 26)
-
-    def test_invalid__init__type_name_2(self):
-        with self.assertRaises(TypeError):
-            card_game = CardGame("a", [1, 2, 3], 26, 26)
-
-    def test_invalid__init__type_num_1(self):
-        with self.assertRaises(TypeError):
-            card_game = CardGame("a", "b", "26", 26)
-
-    def test_invalid__init__type_num_2(self):
-        with self.assertRaises(TypeError):
-            card_game = CardGame("a", "b", 26, "26")
+        # there is no need to check all names and number of cards
+        # because it is already been tested in class Player
+        self.assertTrue(self.card_play_1.new_game_happened)  # check that new_game worked
+        self.assertEqual(self.card_play_1.deck.cards, [])  # list of cards is empty because new_game worked
 
     def test_invalid__init__value_num_1(self):
         with self.assertRaises(ValueError):
@@ -44,26 +29,26 @@ class TestCardGame(TestCase):
         with self.assertRaises(ValueError):
             card_game = CardGame("a", "b", 26, 27)
 
-
-
+    def test_valid_new_game(self):
+        # deck of cards = 0, all cards at the players
+        self.assertTrue(self.card_play_1.new_game_happened)     # the function has been called from the __init__
+        self.assertEqual(0, len(self.card_play_1.deck.cards))
+        self.assertEqual(self.card_play_1.deck.cards, [])
 
     def test_invalid_new_game(self):
-        # deck of cards = 0, all cards at the players
-        print(self.card_play_1)
-        print(self.card_play_1.deck.cards)
-        # self.card_play_1.deck.deal_one()
-        # print(self.card_play_1.deck.cards)
+        pass
 
-        # self.assertFalse(self.card_play_1.new_game())
-        # self.fail()
-
-    # @mock.patch('Card_Game.Card_Game.new_game', return_value= NotImplemented)
-    def test_valid_get_winner(self):
+    def test_valid_get_winner_p1(self):
         self.card_play_1.new_game()     # num of card 26 - player1, player2
         self.card_play_1.player2.get_card()     # num of cards p1 = 26, p2 = 25
         self.assertTrue(self.card_play_1.get_winner())
 
-    def test_valid_get_winner2(self):
+    def test_valid_get_winner_p2(self):
         self.card_play_1.new_game()     # num of card 26 - player1, player2
         self.card_play_1.player2.get_card()     # num of cards p1 = 26, p2 = 25
         self.assertTrue(self.card_play_1.get_winner())
+
+    def test_valid_get_winner_draw(self):
+        self.card_play_1.new_game()
+        # num of card is equal for both players - 26
+        self.assertIsNone(self.card_play_1.get_winner())
