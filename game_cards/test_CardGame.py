@@ -62,3 +62,8 @@ class TestCardGame(TestCase):
         self.card_play_1.new_game()     # num of card 26 - player1, player2
         self.card_play_1.player2.get_card()     # num of cards p1 = 26, p2 = 25
         self.assertTrue(self.card_play_1.get_winner())
+
+    def test_valid_get_winner2(self):
+        self.card_play_1.new_game()     # num of card 26 - player1, player2
+        self.card_play_1.player2.get_card()     # num of cards p1 = 26, p2 = 25
+        self.assertTrue(self.card_play_1.get_winner())
