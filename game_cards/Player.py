@@ -6,19 +6,17 @@ from DeckOfCards import DeckOfCards
 class Player:
     def __init__(self, name: str, num_of_cards: int):
         # Initialize values in the object player, creates an empty list of cards
-        if type(name) != str:  # change - שמות נקלטים ב- str.....
-            raise TypeError("name must be of type str!")
         if type(num_of_cards) != int:
             raise TypeError("number of cards must be of type int!")
         if num_of_cards <= 0 or num_of_cards > 52:        # full pack of cards
             raise ValueError("number of cards must be between 1 - 52")
-        self.name = name
-        self.pack_cards = []
         if num_of_cards < 10 or num_of_cards > 26:
             # default length of list of cards in each case is 26
             self.num_of_cards = 26
         else:
             self.num_of_cards = num_of_cards
+        self.name = name
+        self.pack_cards = []
 
     def set_hand(self, full_pack: DeckOfCards):
         # dividing cards from the deck of cards to the player

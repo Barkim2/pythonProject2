@@ -4,15 +4,11 @@ from Player import Player
 
 class CardGame:
     def __init__(self, name_1: str, name_2: str, num_of_cards_1: int, num_of_cards_2: int):
-        # נבדק כבר ב - Player
-        # if type(name_1) != str:
-        #     raise TypeError("name of player_1 must be of type of string!")
-        # if type(name_2) != str:
-        #     raise TypeError("name of player_2 must be of type of string!")
-        # if type(num_of_cards_1) != int:
-        #     raise TypeError("number of cards of player_1 must be of type int!")
-        # if type(num_of_cards_2) != int:
-        #     raise TypeError("number of cards of player_2 must be of type int!")
+        # Build 2 players and dividing to each player its number of cards
+        if type(num_of_cards_1) != int:
+            raise TypeError("number of cards of player_1 must be of type int!")
+        if type(num_of_cards_2) != int:
+            raise TypeError("number of cards of player_2 must be of type int!")
         if num_of_cards_1 > 26 or num_of_cards_1 <= 0:
             # 26 is half of pack of cards, 0 is the minimum amount of cards a player can have
             raise ValueError("number of cards must be between 0 - 26")
@@ -36,6 +32,9 @@ class CardGame:
                     self.player1.add_card(self.deck.deal_one())
                 if self.player2.num_of_cards > len(self.player2.pack_cards):
                     self.player2.add_card(self.deck.deal_one())
+                if self.player1.num_of_cards == len(self.player1.pack_cards) \
+                        and self.player2.num_of_cards == len(self.player2.pack_cards):
+                    break
         else:   # if the function is being called from other function, only print Error
             print("Error, not the beginning of the game")
 
@@ -52,3 +51,10 @@ class CardGame:
                f"len of list: {len(self.player1.pack_cards)}\n" \
                f"name: {self.player2.name} pack of cards: {self.player2.pack_cards} " \
                f"len of list: {len(self.player1.pack_cards)}"
+
+    # def __repr__(self):
+    #     return f"name: {self.player1.name} pack of cards: {self.player1.pack_cards}" \
+    #            f"len of list: {len(self.player1.pack_cards)}\n" \
+    #            f"name: {self.player2.name} pack of cards: {self.player2.pack_cards} " \
+    #            f"len of list: {len(self.player1.pack_cards)}"
+

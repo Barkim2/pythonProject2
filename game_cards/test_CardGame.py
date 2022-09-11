@@ -23,32 +23,35 @@ class TestCardGame(TestCase):
         with self.assertRaises(ValueError):
             card_game = CardGame("a", "b", 27, 26)
 
-    def test_invalid__init__value_num_2(self):
         with self.assertRaises(ValueError):
             card_game = CardGame("a", "b", 26, 0)
         with self.assertRaises(ValueError):
             card_game = CardGame("a", "b", 26, 27)
 
-    def test_valid_new_game(self):
-        # deck of cards = 0, all cards at the players
-        self.assertTrue(self.card_play_1.new_game_happened)     # the function has been called from the __init__
-        self.assertEqual(0, len(self.card_play_1.deck.cards))
-        self.assertEqual(self.card_play_1.deck.cards, [])
+    def test_invalid__init__type(self):
+        with self.assertRaises(TypeError):
+            card_game = CardGame("a", "b", "a", 26)
+        with self.assertRaises(TypeError):
+            card_game = CardGame("a", "b", 27, [26,28,30])
 
-    def test_invalid_new_game(self):
-        pass
+    def test_valid_new_game(self):
+        # adding cards from the deck to player 1 and player 2
+        self.c1 = CardGame("bar", "ariel", 10, 10)
+        self.assertTrue(self.card_play_1.new_game_happened)     # the function has been called from the __init__
+        self.assertEqual(32, len(self.c1.deck.cards))
+        self.assertEqual(10, len(self.c1.player1.pack_cards))
+        self.assertEqual(10, len(self.c1.player2.pack_cards))
 
     def test_valid_get_winner_p1(self):
-        self.card_play_1.new_game()     # num of card 26 - player1, player2
+        # num of card 26 - player1, player2
         self.card_play_1.player2.get_card()     # num of cards p1 = 26, p2 = 25
-        self.assertTrue(self.card_play_1.get_winner())
+        self.assertEqual(self.card_play_1.get_winner(), self.card_play_1.player1)
 
     def test_valid_get_winner_p2(self):
-        self.card_play_1.new_game()     # num of card 26 - player1, player2
-        self.card_play_1.player2.get_card()     # num of cards p1 = 26, p2 = 25
-        self.assertTrue(self.card_play_1.get_winner())
+        # num of card 26 - player1, player2
+        self.card_play_1.player1.get_card()  # num of cards p1 = 25, p2 = 26
+        self.assertEqual(self.card_play_1.get_winner(), self.card_play_1.player2)
 
     def test_valid_get_winner_draw(self):
-        self.card_play_1.new_game()
         # num of card is equal for both players - 26
-        self.assertIsNone(self.card_play_1.get_winner())
+        self.assertEqual(self.card_play_1.get_winner(), None)

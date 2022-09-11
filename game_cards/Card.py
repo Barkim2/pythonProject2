@@ -6,21 +6,18 @@ class Card:     # ex.1
             raise TypeError("Value of Card must be of type int!")
         if value < 1 or value > 13:  # checks if the value is valid (1-13)
             raise ValueError("Value of Card is only between 1-13!")
-        if type(suit) != str:        # checks if the suit is a string
-            raise TypeError("suit of card must be str!")
         if suit != "Diamond" and suit != "Spade" and suit != "Heart" and suit != "Club":
             # checks if suit of card is valid(one of the forth above)
-            raise ValueError("suit of card must be one of these: 'Diamond', 'Spade', 'Heart', 'Club'")
+            raise ValueError("suit of card must be one of these(of type string): 'Diamond', 'Spade', 'Heart', 'Club'")
         self.value = value
         self.suit = suit
 
     def suit_to_number(self, suit: str):
         # this function receive a suit as a string checks if it is valid, convert it to int
         # by the correct order and return it
-        if type(suit) != str:       # check if the suit is valid
-            raise TypeError("suit of card must be str!")
+        # checks if the suit is one of the valid card
         if suit != "Diamond" and suit != "Spade" and suit != "Heart" and suit != "Club":
-            raise ValueError("suit of card must be one of these: 'Diamond', 'Spade', 'Heart', 'Club'")
+            raise ValueError("suit of card must be one of these(of type string): 'Diamond', 'Spade', 'Heart', 'Club'")
         suit_list = ["Diamond", "Spade", "Heart", "Club"]
         # suit values: Diamond=1 Spade=2 Heart=3 Club=4
         suit_number = 0
@@ -51,16 +48,14 @@ class Card:     # ex.1
             return False                            # self_v < other_v -> other
 
     def __eq__(self, other):
-        # check the suit too
-        # check if value of cards is the same
+        # checks if two cards are equal
         if type(other) != Card:     # check if received value is not Card
             raise TypeError("received value must be of type Card ")
-        if self.suit == other.suit:
-            if self.value == other.value:
-                return True
-            return False
+        # checks if two cards are totally equal (two different decks)
         if self.value == other.value:
-            # no valid case of two card with same suit (in one pack), therefore only value has been checked
+            if self.suit == other.suit:
+                return True
+            # checks if two cards has the same value (one deck)
             return True
         return False
 

@@ -13,10 +13,6 @@ class TestPlayer(TestCase):
         self.assertEqual(self.p1.num_of_cards, 26)
         self.assertEqual(self.p1.pack_cards, [])
 
-    def test_invalid__init__type_name(self):
-        with self.assertRaises(TypeError):
-            p1 = Player(123, 26)
-
     def test_invalid__init__type_num(self):
         with self.assertRaises(TypeError):
             p1 = Player("a", 1.23)
@@ -48,7 +44,7 @@ class TestPlayer(TestCase):
         self.assertEqual(len(self.p1.pack_cards), 20)  # checks amount of p1 cards
         self.assertEqual(len(self.deck.cards), 32)  # checks amount of cards at the deck
 
-    def test_invalid_set_hand_value_enpty_deck(self):
+    def test_invalid_set_hand_value_empty_deck(self):
         # checks a case when deck of cards is empty
         # ant the player tries to divide cards from it
         self.deck = DeckOfCards()
@@ -78,7 +74,7 @@ class TestPlayer(TestCase):
     def test_valid_add_card(self):
         self.c1 = Card(7, "Heart")
         self.p1.add_card(self.c1)
-        self.assertIn((7, "Heart"), self.p1.pack_cards)
+        self.assertIn(self.c1, self.p1.pack_cards)
 
     def test_invalid_add_card(self):
         with self.assertRaises(TypeError):
