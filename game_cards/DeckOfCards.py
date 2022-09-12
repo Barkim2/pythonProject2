@@ -26,8 +26,8 @@ class DeckOfCards:
     def __str__(self):
         return f"list of cards: {self.cards}"
 
-    # def __repr__(self):
-    #     return f"list of cards: {self.cards}"
+    def __repr__(self):
+        return f"list of cards: {self.cards}"
 
     def cards_shuffle(self):
         # shuffle the cards in the list using python function (shuffle from random)

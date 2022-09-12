@@ -4,7 +4,7 @@ from DeckOfCards import DeckOfCards
 
 
 class Player:
-    def __init__(self, name: str, num_of_cards: int):
+    def __init__(self, name: str, num_of_cards: int = 26):
         # Initialize values in the object player, creates an empty list of cards
         if type(num_of_cards) != int:
             raise TypeError("number of cards must be of type int!")

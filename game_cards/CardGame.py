@@ -52,9 +52,8 @@ class CardGame:
                f"name: {self.player2.name} pack of cards: {self.player2.pack_cards} " \
                f"len of list: {len(self.player1.pack_cards)}"
 
-    # def __repr__(self):
-    #     return f"name: {self.player1.name} pack of cards: {self.player1.pack_cards}" \
-    #            f"len of list: {len(self.player1.pack_cards)}\n" \
-    #            f"name: {self.player2.name} pack of cards: {self.player2.pack_cards} " \
-    #            f"len of list: {len(self.player1.pack_cards)}"
-
+    def __repr__(self):
+        return f"name: {self.player1.name} pack of cards: {self.player1.pack_cards}" \
+               f"len of list: {len(self.player1.pack_cards)}\n" \
+               f"name: {self.player2.name} pack of cards: {self.player2.pack_cards} " \
+               f"len of list: {len(self.player1.pack_cards)}"
